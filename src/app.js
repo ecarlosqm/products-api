@@ -2,17 +2,22 @@ import express from 'express';
 import morgan from 'morgan';
 import pkg from '../package.json'
 
-//immport routes
+import {createRoles} from "./libs/initialSeptup";
+
+//Rutas
 import productsRoutes from './routes/products.routes';
+import authRoutes from './routes/auth.routes';
 
+//Configuraciones del servidor
 const app = express();
+createRoles();
 
-//Configurations
 app.set('pkg', pkg);
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.use('/products',productsRoutes);
+app.use('/api/products',productsRoutes);
+app.use('/api/auth',authRoutes);
 
 app.get('/', (req,res)=>{
     res.json({
