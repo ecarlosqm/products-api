@@ -2,12 +2,17 @@ import express from 'express';
 import morgan from 'morgan';
 import pkg from '../package.json'
 
+//immport routes
+import productsRoutes from './routes/products.routes';
+
 const app = express();
 
 //Configurations
 app.set('pkg', pkg);
 app.use(morgan('dev'));
 app.use(express.json());
+
+app.use('/products',productsRoutes);
 
 app.get('/', (req,res)=>{
     res.json({
